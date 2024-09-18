@@ -2,33 +2,60 @@
 // ______ETAPE 1______
 let code = ["rouge", "vert", "bleu", "jaune"]
 let essai1 = ["rouge","jaune"]
-let combinaison=["rouge","jaune"]
-//let couleur1 = prompt("Quelle est la couleur de ton premier pion?")
-//let couleur2 = prompt("Quelle est la couleur de ton second pion?")
+let combinaison=[]
+let couleur1 = prompt("Quelle est la couleur de ton premier pion ?")
+let couleur2 = prompt("Quelle est la couleur de ton second pion ?")
 
-//todo fontion :Si la proposition est bien composée uniquement des 4 couleurs possibles et rien d’autre
+//VERIFIE QUE LA COULEUR EST AUTORISEE
 function estValide(tableau) {
     return tableau.every(couleur => code.includes(couleur));
 }
 console.log(estValide(essai1));
  
-//todo fonction : Une fonction qui retourne true ou false si la bonne combinaison est trouvée ou non
+//COMPARE LE CODE SECRET ET LA PROPOSITION. RETOURNE UN BOOLEEN
 function estCorrect(secret,proposition) {
     if (secret.length!==proposition.length) return false;
     console.log(JSON.stringify(secret ));
     
     return JSON.stringify(secret)===JSON.stringify(proposition)
 }
-console.log(estCorrect(combinaison,essai1));
+console.log(estCorrect(essai1, combinaison));
 
 
+// RECUPERE INPUT DE L'UTILISATEUR ET LE TABLIFIE
+function essaiCouleur () {
+    combinaison.push(couleur1, couleur2)
+    return combinaison
+}
+console.log(essaiCouleur());
 
-//todo fonction : Une fonction qui gère la partie (continuer tant que/fin si gagné)
-function name(params) {
 
+// INITIALISE LE NOMBRE DE TENTATIVES
+const tentativesMax = 12
+let tentatives = 0
+
+// GERE LE GAMEPLAY
+function partieDeJeu() {
+    let devineCouleur =  essaiCouleur()
+    while (tentatives <= tentativesMax || estCorrect(essai1, devineCouleur) === false){
+        if(!estValide(devineCouleur)){
+            alert("Tu dois choisir une couleur autorisée") 
+        }  else {
+            estCorrect(essai1, devineCouleur)
+            tentatives ++
+            console.log(tentatives);
+            console.log(estCorrect(essai1, devineCouleur));     
+        } if (tentatives === tentativesMax){
+            alert("You lose, sucker !")
+        } if (estCorrect(essai1, devineCouleur) ===true){
+            alert("That's a good boy :)")
+
+        }
+    break
+    }
 }
 
-
+partieDeJeu()
 
 
 
