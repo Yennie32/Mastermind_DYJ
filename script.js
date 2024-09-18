@@ -1,6 +1,15 @@
 //Exercice indiv Mastermind
 // ______ETAPE 1______
-let couleursAutorisees = ["rouge", "vert", "bleu", "jaune"];
+const couleursAutorisees = [
+  "rouge",
+  "vert",
+  "bleu",
+  "jaune",
+  "rose",
+  "violet",
+  "blanc",
+  "orange",
+];
 let combinaison = [];
 let cachee = ["rouge", "jaune"];
 // let couleur1 = prompt("Quelle est la couleur de ton premier pion ?")
