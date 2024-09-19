@@ -13,7 +13,6 @@ let couleursAutorisees = {
   7: "blanc",
   8: "orange",
 };
-let combinaison = [];
 let cachee = shuffleColor(couleursAutorisees);
 console.log(cachee);
 
@@ -32,51 +31,40 @@ function estCorrect(secret, proposition) {
 
   return JSON.stringify(secret) === JSON.stringify(proposition);
 }
-// console.log(estCorrect(essai1, combinaison));
-let bouton = document.querySelector("#button")
-bouton.addEventListener("click", partieDeJeu)
+
+let bouton = document.querySelector("#button");
+bouton.addEventListener("click", partieDeJeu);
 // RECUPERE INPUT DE L'UTILISATEUR ET LE TABLIFIE
 function essaiCouleur() {
   let tabCouleur = [];
-  let choixCouleur = document.querySelectorAll(".couleur")
-  console.log(choixCouleur.value);
-  choixCouleur.forEach(couleur => {
+  let choixCouleur = document.querySelectorAll(".couleur");
+  choixCouleur.forEach((couleur) => {
     tabCouleur.push(couleur.value);
-  })
-  console.log("tabCouleur", tabCouleur);
+  });
   return tabCouleur;
 }
 
 // INITIALISE LE NOMBRE DE TENTATIVES
+let tentativesMax = 3;
+let trouvé = false;
 
 // GERE LE GAMEPLAY
 function partieDeJeu() {
-  let tentativesMax = 3;
-  let trouvé = false;
-
   let devineCouleur = essaiCouleur();
-  tentativesMax--;
 
-  while (tentativesMax > 0 && !trouvé) {
-    // if (!estValide(devineCouleur)) {
-    //   console.log("INVALIDE");
-    //   devineCouleur = essaiCouleur();
-    //   continue;
-    // }
-    let tentative = estCorrect(cachee, devineCouleur);
-    if (!tentative) {
-      texte.innerText = "Essaie encore..."
-      tentativesMax--;
-      devineCouleur = essaiCouleur();
+  let tentative = estCorrect(cachee, devineCouleur);
 
-    } else {
-      texte.innerText = "Bravo"
-      trouvé = true;
-    }   
-  }  
-   if (!trouvé) {
-    texte.innerText = "C'est perdu..."
-    return
-  } 
+  if (tentative) {
+    texte.innerText = "Bravo";
+    trouvé = true;
+  } else {
+    tentativesMax--;
+    texte.innerText = `Essaie encore... il ne te reste plus que ${tentativesMax} tentative(s)`;
+  }
+
+  if (tentativesMax <= 0 && !trouvé) {
+    texte.innerText = `C'est perdu... La combinaison était : ${cachee.join(
+      ", "
+    )}.`;
+  }
 }
-
