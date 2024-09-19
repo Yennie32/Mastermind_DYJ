@@ -13,6 +13,8 @@ let couleursAutorisees = {
   7: "blanc",
   8: "orange",
 };
+// console.log(Object.values(couleursAutorisees));
+
 let cachee = shuffleColor(couleursAutorisees);
 console.log(cachee);
 
@@ -20,9 +22,11 @@ console.log(cachee);
 // let couleur2 = prompt("Quelle est la couleur de ton second pion ?")
 
 // //VERIFIE QUE LA COULEUR EST AUTORISEE
-// function estValide(tableau) {
-//   return tableau.every((couleur) => couleursAutorisees.includes(couleur));
-// }
+function estValide(tableau) {
+  return tableau.every((couleur) =>
+    Object.values(couleursAutorisees).includes(couleur)
+  );
+}
 // // console.log(estValide(essai1));
 
 //COMPARE LE CODE SECRET ET LA PROPOSITION. RETOURNE UN BOOLEEN
@@ -49,22 +53,25 @@ let tentativesMax = 3;
 let trouvé = false;
 
 // GERE LE GAMEPLAY
+
 function partieDeJeu() {
   let devineCouleur = essaiCouleur();
+  if (estValide(devineCouleur)) {
+    let tentative = estCorrect(cachee, devineCouleur);
 
-  let tentative = estCorrect(cachee, devineCouleur);
-
-  if (tentative) {
-    texte.innerText = "Bravo";
-    trouvé = true;
+    if (tentative) {
+      texte.innerText = "Bravo";
+      trouvé = true;
+    } else {
+      tentativesMax--;
+      texte.innerText = `Essaie encore... il ne te reste plus que ${tentativesMax} tentative(s)`;
+    }
+    if (tentativesMax <= 0 && !trouvé) {
+      texte.innerText = `C'est perdu... La combinaison était : ${cachee.join(
+        ", "
+      )}.`;
+    }
   } else {
-    tentativesMax--;
-    texte.innerText = `Essaie encore... il ne te reste plus que ${tentativesMax} tentative(s)`;
-  }
-
-  if (tentativesMax <= 0 && !trouvé) {
-    texte.innerText = `C'est perdu... La combinaison était : ${cachee.join(
-      ", "
-    )}.`;
+    texte.innerText = `INVALIDE`;
   }
 }
