@@ -1,5 +1,5 @@
 # Mastermind
-Exercice Mastermind en MOB programming avec Julien &amp; Driss
+Exercice Mastermind en MOB programming avec @Julien8387 et @Driss292
 
 Langage :HTML, JS
 
