@@ -1,4 +1,4 @@
-# Mastermind_DYJ
+# Mastermind
 Exercice Mastermind en MOB programming avec Julien &amp; Driss
 
 Langage :HTML, JS
